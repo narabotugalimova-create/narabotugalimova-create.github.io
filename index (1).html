@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<title>ИИ мастер-класс Магнат — FULL v4</title>
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=6YjDlSpFiS68xsUEjVVF3BRrwngMAfa6hqZOwPkaD3_FapJUFaaVuuNRe8istcFYJ57ahOrTrKc-hzuVif3Xb-pQgn112BXMjEJ_QyPPkhlCkt8RMzlJ-7MesAaglq71IcqOvg9jo4BBMhdqk-r3VhmwJuVhlDQOxnGhVH1FkRYG3yrcgVoDOl2cynI-Ro9OzfIhRR650z4tA12_Ek1R58YnD8vAW2MX7DFsetv6G07lkVx-2kVthYbfJwz31zhKBDbjHyre8hqppsTly557yA" charset="UTF-8"></script><style>
+  :root{
+    --cream:#F7F1E6; --paper:#FFFCF6; --ink:#102236; --muted:#6E7782;
+    --deep:#081727; --deep2:#0E2238; --gold:#C79A51; --rust:#C95C35; --line:rgba(16,34,54,.16);
+    --blue:#2D6BFF; --soft:#EEE4D2;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:#111;color:var(--ink);font-family:Arial, Helvetica, sans-serif;overflow:hidden}
+  body{display:flex;align-items:center;justify-content:center}
+  .deck{position:absolute;width:1600px;height:900px;left:0;top:0;background:var(--paper);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.35);transform-origin:top left}
+  .slide{position:absolute;inset:0;padding:54px 72px 50px;display:none;background:var(--paper);overflow:hidden}
+  .slide.active{display:block;animation:fade .22s ease-out}
+  @keyframes fade{from{opacity:.2;transform:translateY(5px)}to{opacity:1;transform:none}}
+  .dark{background:radial-gradient(circle at 84% 18%,rgba(199,154,81,.18),transparent 24%),linear-gradient(145deg,var(--deep),#06101d);color:#fff}
+  .dark .muted{color:rgba(255,255,255,.68)} .dark .eyebrow{color:#E6C57C}.dark .rule{background:rgba(255,255,255,.18)}
+  .eyebrow{font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);font-weight:800;margin-bottom:18px}
+  h1{font-size:54px;line-height:1.02;letter-spacing:-.04em;margin:0 0 24px;font-weight:900;max-width:980px}
+  h2{font-size:43px;line-height:1.08;letter-spacing:-.035em;margin:0 0 24px;font-weight:900;max-width:1030px}
+  h3{font-size:24px;line-height:1.2;margin:0 0 10px;font-weight:900;color:var(--rust)}
+  p{font-size:24px;line-height:1.36;margin:0 0 16px;max-width:980px}
+  .small{font-size:17px;line-height:1.35}.mid{font-size:21px;line-height:1.36}.muted{color:var(--muted)}
+  .lead{font-size:29px;line-height:1.24;max-width:980px;font-weight:650}.big{font-size:104px;line-height:.95;font-weight:900;letter-spacing:-.075em}.mega{font-size:150px;line-height:.85;font-weight:950;letter-spacing:-.09em}
+  .accent{color:var(--rust)}.gold{color:var(--gold)}.blue{color:var(--blue)}.white{color:#fff}
+  .rule{height:1px;background:var(--line);margin:24px 0}
+  .grid{display:grid;gap:18px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+  .card{border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.55);padding:24px;box-shadow:0 14px 40px rgba(16,34,54,.06)}
+  .dark .card{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);box-shadow:none}
+  .callout{border-left:6px solid var(--rust);background:rgba(201,92,53,.08);padding:18px 24px;border-radius:0 18px 18px 0;font-weight:800;font-size:28px;line-height:1.18;max-width:1040px}
+  .dark .callout{background:rgba(255,255,255,.07)}
+  .footer{position:absolute;left:72px;right:72px;bottom:20px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:rgba(110,119,130,.9);letter-spacing:.06em;text-transform:uppercase}.dark .footer{color:rgba(255,255,255,.45)}
+  .progress{position:absolute;left:0;bottom:0;height:4px;background:var(--rust);width:0%;transition:width .2s ease}
+  .nav{position:absolute;right:18px;bottom:12px;z-index:20;display:flex;gap:6px;opacity:.58;transition:.2s}.nav:hover{opacity:1}.nav button{border:1px solid rgba(16,34,54,.16);background:rgba(255,255,255,.72);border-radius:999px;width:32px;height:32px;font-size:17px;cursor:pointer;transition:.2s;line-height:1}.nav button:hover{background:var(--rust);color:#fff}.dark .nav button{background:rgba(255,255,255,.10);color:#fff;border-color:rgba(255,255,255,.22)}.dark .nav button:hover{background:var(--gold);color:#081727}
+  .notes{position:absolute;left:60px;right:60px;bottom:65px;background:rgba(8,23,39,.95);color:#fff;border-radius:20px;padding:18px 22px;font-size:18px;line-height:1.35;z-index:30;display:none;box-shadow:0 20px 70px rgba(0,0,0,.45)}
+  .notes.show{display:block}.notes b{color:#E6C57C}
+  .watermark{position:absolute;right:60px;top:50px;width:420px;height:420px;border:1px solid rgba(199,154,81,.18);border-radius:50%;opacity:.75}.lightmark{position:absolute;right:-120px;top:-80px;width:520px;height:520px;border:1px solid rgba(16,34,54,.08);border-radius:50%}
+  .timeline{display:flex;align-items:center;gap:24px;margin-top:40px;max-width:1000px}.year{font-size:82px;font-weight:950;letter-spacing:-.06em}.tline{height:2px;background:linear-gradient(90deg,var(--gold),rgba(255,255,255,.2));flex:1;position:relative}.tline::after{content:'66 лет';position:absolute;left:50%;top:14px;transform:translateX(-50%);color:var(--gold);font-size:18px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+  .force{min-height:250px}.force .icon{width:42px;height:42px;border-radius:12px;background:var(--ink);margin-bottom:20px}.force h3{color:var(--rust)}
+  .data-line{display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,.12);padding:18px 0}.data-line .label{width:260px;color:var(--gold);font-weight:900}.data-line .desc{font-size:28px;color:#fff}
+  .examples{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}.mini{border-radius:18px;padding:18px 20px;background:rgba(16,34,54,.06);font-size:20px;line-height:1.24}.mini b{display:block;color:var(--rust);font-size:15px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}.dark .mini{background:rgba(255,255,255,.06)}
+  .quote{font-size:34px;line-height:1.16;font-weight:850;letter-spacing:-.03em;border-left:5px solid var(--gold);padding-left:22px;max-width:980px}
+  .percent-row{display:grid;grid-template-columns:1.35fr .8fr 1.15fr;gap:24px;align-items:stretch;margin-top:18px}.stat{padding:26px;border-radius:22px;background:rgba(255,255,255,.64);border:1px solid var(--line)}.stat .num{font-size:84px;line-height:.9;font-weight:950;letter-spacing:-.08em;color:var(--rust)}.stat .caption{font-size:21px;line-height:1.28;margin-top:14px}.gap{height:160px;border-top:2px solid var(--gold);border-bottom:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:900;color:var(--gold);text-align:center}
+  .tasks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}.tasks .card{padding:20px}.tasks ul{padding-left:18px;margin:8px 0 0}.tasks li{font-size:17px;line-height:1.34;margin:7px 0}.tag{display:inline-block;border-radius:999px;background:rgba(201,92,53,.1);padding:7px 11px;color:var(--rust);font-size:13px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px}.dark .tag{background:rgba(255,255,255,.11);color:var(--gold)}
+  .split-title{display:flex;align-items:baseline;gap:14px}.split-title .section-no{font-size:18px;font-weight:900;color:var(--rust);letter-spacing:.12em;text-transform:uppercase}.big-question{font-size:70px;line-height:1.02;letter-spacing:-.06em;font-weight:950;max-width:1080px}.question-list{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:35px}.qcard{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);border-radius:22px;padding:24px;font-size:26px;line-height:1.18;font-weight:800}
+  .bio{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}.bio-list{display:grid;gap:14px}.bio-item{border-left:4px solid var(--rust);padding:6px 0 8px 18px}.bio-item b{display:block;font-size:22px;color:var(--ink);margin-bottom:4px}.bio-item span{font-size:18px;line-height:1.32;color:var(--muted)}.qrbox{background:#fff;border-radius:28px;padding:28px;text-align:center;border:1px solid var(--line);box-shadow:0 20px 60px rgba(16,34,54,.1)}.qrbox img{width:270px;height:270px}.qrbox b{display:block;font-size:22px;margin-top:14px}.qrbox span{display:block;color:var(--muted);font-size:16px;margin-top:6px}
+  .work-compare{display:grid;grid-template-columns:1fr .28fr 1fr;gap:18px;align-items:stretch;margin-top:16px}
+  .work-card{border-radius:26px;padding:26px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16)}
+  .work-card.light{background:rgba(255,255,255,.12)}
+  .work-title{font-size:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:900;margin-bottom:16px}
+  .work-main{font-size:28px;line-height:1.16;font-weight:900;margin-bottom:18px;letter-spacing:-.03em}
+  .flow{display:grid;gap:10px;margin-top:16px}
+  .flow-step{border-radius:16px;padding:13px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.11);font-size:19px;line-height:1.22}
+  .flow-step b{color:#fff}
+  .vsline{display:flex;align-items:center;justify-content:center;position:relative;color:var(--gold);font-weight:950;letter-spacing:.12em;text-transform:uppercase}
+  .vsline:before{content:'';position:absolute;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,transparent,var(--gold),transparent);opacity:.75}
+  .vsline span{background:var(--deep);padding:12px 0;z-index:1;writing-mode:vertical-rl;transform:rotate(180deg);font-size:13px}
+  .levels-map{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+  .levelbox{border:1px solid var(--line);border-radius:24px;padding:22px 20px;background:rgba(255,255,255,.62);min-height:255px;box-shadow:0 14px 40px rgba(16,34,54,.05)}
+  .levelbox .n{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:var(--ink);color:#fff;font-weight:900;margin-bottom:16px}
+  .levelbox h3{font-size:26px;margin-bottom:8px;color:var(--rust)}
+  .levelbox p{font-size:19px;line-height:1.28;margin-bottom:0}
+  .dark .levelbox{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);box-shadow:none}.dark .levelbox .n{background:var(--gold);color:#081727}
+  .big-label{font-size:18px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:var(--rust);margin-bottom:12px}
+  .example-row{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:16px}
+  .example-tile{border-radius:24px;padding:24px;border:1px solid var(--line);background:rgba(255,255,255,.6)}
+  .example-tile h3{font-size:28px;color:var(--ink)}
+  .example-tile .phrase{font-size:26px;line-height:1.18;font-weight:900;letter-spacing:-.03em;margin:12px 0 0;color:var(--rust)}
+  .context-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:20px;align-items:stretch}
+  .context-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+  .pill{border-radius:999px;background:rgba(201,92,53,.10);padding:11px 15px;font-size:18px;font-weight:800;color:var(--rust);text-align:center}
+  .dark .pill{background:rgba(255,255,255,.1);color:var(--gold)}
+  .ladder{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px;max-width:1050px}
+  .ladder-row{display:grid;grid-template-columns:220px 1fr;gap:18px;align-items:center;border:1px solid var(--line);background:rgba(255,255,255,.58);border-radius:20px;padding:16px 20px}
+  .ladder-row b{font-size:23px;color:var(--rust)}.ladder-row span{font-size:21px;line-height:1.26}
+  .process-line{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-top:24px}
+  .process-node{border-radius:22px;padding:20px 18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);min-height:130px}.process-node b{display:block;color:var(--gold);font-size:18px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}.process-node span{font-size:21px;line-height:1.2}.arrow{font-size:34px;color:var(--gold);font-weight:900}
+  .mistake-list{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}.mistake{border-radius:20px;background:rgba(16,34,54,.06);border:1px solid var(--line);padding:18px;font-size:22px;font-weight:850;line-height:1.16;color:var(--ink)}
+  .checklist{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.check{border-left:4px solid var(--rust);background:rgba(255,255,255,.56);padding:14px 16px;border-radius:0 16px 16px 0;font-size:20px;line-height:1.26;font-weight:700}
+  .route{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:22px}.route-card{border-radius:30px;padding:30px;border:1px solid var(--line);background:rgba(255,255,255,.68)}.route-card h3{font-size:34px;color:var(--rust);margin-bottom:12px}.route-card p{font-size:23px;line-height:1.3}
+  .cta-word{font-size:74px;line-height:.95;font-weight:950;letter-spacing:-.07em;color:var(--rust);margin:14px 0}.dark .cta-word{color:var(--gold)}
+  .vote-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}.vote{border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.64);padding:20px}.vote .digit{font-size:58px;font-weight:950;color:var(--rust);line-height:.9}.vote b{font-size:21px;display:block;margin:12px 0 8px}.vote span{font-size:18px;color:var(--muted);line-height:1.25;display:block}
+  .proof-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:18px}.proof{border-radius:24px;padding:23px;border:1px solid var(--line);background:rgba(255,255,255,.62);min-height:270px}.proof h3{font-size:27px;color:var(--ink)}.proof p{font-size:20px;line-height:1.28}.proof .result{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-weight:900;color:var(--rust)}
+  .thin{font-size:19px;line-height:1.32}.wide{max-width:1120px}
+  .fear-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:20px}.fear-card{border:1px solid var(--line);border-radius:20px;padding:20px;background:rgba(255,255,255,.6)}.dark .fear-card{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15)}.fear-card h3{font-size:26px;color:var(--rust)}.fear-card p{font-size:20px;line-height:1.3}
+  .case-block{margin-top:10px}.case-block .case-item{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)}.case-block .case-item:last-child{border-bottom:0}.case-block .case-label{font-weight:900;color:var(--gold);display:block;font-size:18px;text-transform:uppercase;letter-spacing:.05em}.case-block .case-text{font-size:20px;line-height:1.3;margin-top:4px}
+
+  .case-visual{display:grid;grid-template-columns:1fr 54px 1fr 54px 1fr;gap:14px;align-items:stretch;margin-top:18px}
+  .case-vcard{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.065);border-radius:26px;padding:22px 22px 20px;min-height:475px}
+  .case-vcard .case-kicker{display:inline-block;border-radius:999px;padding:7px 12px;background:rgba(199,154,81,.14);color:var(--gold);font-size:13px;font-weight:950;letter-spacing:.11em;text-transform:uppercase;margin-bottom:14px}
+  .case-vcard h3{font-size:27px;line-height:1.12;color:#fff;margin-bottom:14px}
+  .case-vcard ul{margin:0;padding-left:19px}
+  .case-vcard li{font-size:19px;line-height:1.28;margin:10px 0;color:rgba(255,255,255,.82)}
+  .case-vcard.after{background:rgba(199,154,81,.12);border-color:rgba(199,154,81,.35)}
+  .case-vcard.solution{background:rgba(45,107,255,.10);border-color:rgba(45,107,255,.25)}
+  .case-varrow{display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:42px;font-weight:950}
+  .case-result{margin-top:18px;border-left:6px solid var(--gold);background:rgba(199,154,81,.14);border-radius:0 18px 18px 0;padding:16px 22px;font-size:27px;font-weight:900;line-height:1.15;color:#fff}
+
+
+  .pipeline{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:20px;align-items:stretch}
+  .pipe-step{border:1px solid var(--line);background:rgba(255,255,255,.62);border-radius:20px;padding:17px 14px;min-height:130px;position:relative;box-shadow:0 12px 34px rgba(16,34,54,.05)}
+  .pipe-step b{display:block;color:var(--rust);font-size:14px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+  .pipe-step span{font-size:19px;line-height:1.2;font-weight:760;display:block}
+  .pipe-step:not(:last-child)::after{content:'→';position:absolute;right:-17px;top:46%;transform:translateY(-50%);font-size:24px;font-weight:900;color:var(--gold);z-index:2}
+  .dark .pipe-step{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);box-shadow:none}.dark .pipe-step span{color:#fff}.dark .pipe-step b{color:var(--gold)}
+  .systems-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+  .system-card{border:1px solid var(--line);background:rgba(255,255,255,.65);border-radius:24px;padding:21px 20px;min-height:150px}
+  .system-card h3{font-size:23px;color:var(--rust);margin-bottom:8px}.system-card p{font-size:19px;line-height:1.27;margin:0;color:var(--ink)}
+  .role-cloud{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+  .role-group{border-radius:24px;border:1px solid var(--line);background:rgba(255,255,255,.62);padding:22px;min-height:210px}
+  .role-group h3{font-size:25px;color:var(--ink);margin-bottom:12px}.role-tags{display:flex;flex-wrap:wrap;gap:9px}.role-tag{padding:8px 11px;border-radius:999px;background:rgba(201,92,53,.10);color:var(--rust);font-size:17px;font-weight:850}
+  .meeting-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch;margin-top:24px}.meeting-block{border-radius:24px;border:1px solid var(--line);background:rgba(255,255,255,.65);padding:22px;min-height:230px}.meeting-block h3{font-size:26px;color:var(--rust)}.meeting-block ul{margin:12px 0 0;padding-left:20px}.meeting-block li{font-size:19px;line-height:1.28;margin:7px 0}.meeting-arrow{display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--gold);font-weight:950}
+  .boundary-grid{display:grid;grid-template-columns:1fr .18fr 1.15fr;gap:18px;align-items:stretch;margin-top:18px}.boundary-card{border-radius:28px;border:1px solid var(--line);background:rgba(255,255,255,.65);padding:26px}.boundary-card h3{font-size:31px;color:var(--ink);margin-bottom:14px}.boundary-card ul{margin:0;padding-left:22px}.boundary-card li{font-size:21px;line-height:1.3;margin:9px 0}.boundary-vs{display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:950;letter-spacing:.12em;text-transform:uppercase}.boundary-vs span{writing-mode:vertical-rl;transform:rotate(180deg);font-size:14px}.dark .boundary-card{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15)}.dark .boundary-card h3,.dark .boundary-card li{color:#fff}
+
+  @media(max-width:900px){.slide{padding:50px 60px 46px}.footer{left:60px;right:60px}.nav button{width:30px;height:30px}}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- Слайд 1 – изменён заголовок -->
+<section class="slide dark active" data-note="Задача: ударить в боль. Прочитай вопрос и сделай паузу.">
+  <div class="watermark"></div>
+  <div class="eyebrow">Глава 1 · почему именно сейчас</div>
+  <h1>Почему бизнес, который не использует ИИ, <span class="gold">уже теряет деньги и время?</span></h1>
+  <div class="timeline">
+    <div><div class="year">1956</div><div class="mid muted">AI оформляется как<br>научное направление</div></div>
+    <div class="tline"></div>
+    <div><div class="year">2022</div><div class="mid muted">ChatGPT выходит<br>к массовому пользователю</div></div>
+  </div>
+  <div class="rule"></div>
+  <p class="lead">Главный вопрос не в истории технологии, а в том, <b>почему именно сейчас</b> ИИ начал менять компании, профессии и экономику.</p>
+  <div class="footer"><span>ИИ для себя и бизнеса · Магнат</span><span>1 / 30</span></div>
+</section>
+
+<!-- Слайды 2-5 без изменений (кроме номеров) -->
+<section class="slide" data-note="Здесь можно читать почти дословно: старая идея + три условия. Не углубляйся в технические детали.">
+  <div class="lightmark"></div>
+  <div class="eyebrow">Причина</div>
+  <h2>Старая идея впервые получила подходящую среду.</h2>
+  <div class="grid g3">
+    <div class="card force"><div class="icon"></div><h3>Данные</h3><p class="mid">Мир стал цифровым. Огромная часть знаний, текстов, документов и деятельности перешла в данные.</p></div>
+    <div class="card force"><div class="icon"></div><h3>Вычисления</h3><p class="mid">Стало возможно обучать и запускать модели огромного масштаба — быстрее и доступнее, чем раньше.</p></div>
+    <div class="card force"><div class="icon"></div><h3>Алгоритмы</h3><p class="mid">Модели научились лучше работать с языком, кодом, изображениями и сложным контекстом.</p></div>
+  </div>
+  <div class="callout" style="margin-top:28px">ИИ выстрелил не из-за одной «волшебной кнопки». Совпали сразу несколько процессов.</div>
+  <div class="footer"><span>Данные · вычисления · алгоритмы</span><span>2 / 30</span></div>
+</section>
+
+<section class="slide dark" data-note="Главное: не говорить, что личные маршруты/покупки конкретно обучали ChatGPT. Говорим точнее: мир стал машиночитаемым.">
+  <div class="watermark"></div>
+  <div class="eyebrow">Среда</div>
+  <h2>Мир стал машиночитаемым.</h2>
+  <p class="lead muted">За последние десятилетия мы перенесли в цифровую форму огромную часть человеческой деятельности.</p>
+  <div style="margin-top:26px;max-width:1000px">
+    <div class="data-line"><div class="label">Тексты</div><div class="desc">статьи, переписки, сайты, посты, инструкции</div></div>
+    <div class="data-line"><div class="label">Код</div><div class="desc">программы, библиотеки, документация, ошибки</div></div>
+    <div class="data-line"><div class="label">Документы</div><div class="desc">договоры, отчёты, базы знаний, регламенты</div></div>
+    <div class="data-line"><div class="label">Изображения и видео</div><div class="desc">визуальный опыт, обучение, демонстрации</div></div>
+  </div>
+  <div class="callout" style="margin-top:30px">Машина получила доступ к огромному цифровому слою человеческих знаний и деятельности.</div>
+  <div class="footer"><span>Не магия · среда стала другой</span><span>3 / 30</span></div>
+</section>
+
+<section class="slide" data-note="Этот слайд важный. Он должен быть понятен всем: раньше ИИ был внутри продукта, теперь можно напрямую описать задачу.">
+  <div class="eyebrow">Интерфейс</div>
+  <h2>Что на самом деле изменил ChatGPT?</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h3>До ChatGPT</h3>
+      <p class="mid"><b>ИИ уже был вокруг нас</b>: навигация, рекомендации, банковский антифрод, распознавание лица и речи.</p>
+      <p class="mid muted">Но каждый такой ИИ был встроен в конкретный продукт и решал конкретную задачу.</p>
+    </div>
+    <div class="card" style="background:var(--ink);color:white">
+      <h3 style="color:var(--gold)">После ChatGPT</h3>
+      <p class="mid">Обычный человек получил универсальное окно:</p>
+      <div class="quote" style="margin-top:18px;color:white">«Вот моя задача…»</div>
+      <p class="mid" style="margin-top:18px;color:rgba(255,255,255,.72)">Без кода. Без технического задания. На человеческом языке.</p>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:30px">Человеческий язык стал интерфейсом к ИИ.</div>
+  <div class="footer"><span>От скрытого алгоритма — к прямому диалогу</span><span>4 / 30</span></div>
+</section>
+
+<section class="slide dark" data-note="Здесь не использовать сложные термины. Объяснить как предпринимателю: сейчас чаще получают один материал, следующий уровень — цель и цепочка работы при подключённых сервисах.">
+  <div class="eyebrow">Следующий переход</div>
+  <h2>ИИ переходит от ответа к цепочке работы.</h2>
+  <div class="work-compare">
+    <div class="work-card">
+      <div class="work-title">Чаще всего сейчас</div>
+      <div class="work-main">Вы просите подготовить один результат.</div>
+      <div class="flow">
+        <div class="flow-step"><b>Задача:</b> «Подготовь коммерческое предложение»</div>
+        <div class="flow-step"><b>ИИ:</b> собирает текст или черновик документа</div>
+        <div class="flow-step"><b>Вы:</b> проверяете, отправляете, договариваетесь, фиксируете следующий шаг</div>
+      </div>
+    </div>
+    <div class="vsline"><span>переход</span></div>
+    <div class="work-card light">
+      <div class="work-title">Следующий уровень</div>
+      <div class="work-main">Вы ставите не запрос, а цель.</div>
+      <div class="flow">
+        <div class="flow-step"><b>Цель:</b> «Подготовь встречу с этим клиентом»</div>
+        <div class="flow-step"><b>Система:</b> смотрит доступную переписку, договорённости, календарь и материалы</div>
+        <div class="flow-step"><b>Результат:</b> готовит план встречи, вопросы, документы и следующий шаг</div>
+      </div>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:26px">Для бизнеса меняется главное: автоматизировать можно уже не только отдельную операцию, а последовательность работы.</div>
+  <div class="footer"><span>Важно: только при подключённых инструментах, доступах и разрешениях</span><span>5 / 30</span></div>
+</section>
+
+<!-- Слайд 6 – добавлен вопрос к залу -->
+<section class="slide" data-note="Задать вопрос залу: что вам говорят эти цифры? Потом сказать про разрыв между 88 и 7.">
+  <div class="eyebrow">Масштаб</div>
+  <h2>Компании уже вошли в ИИ. Но перестроиться ещё не успели.</h2>
+  <div class="percent-row">
+    <div class="stat"><div class="num">88%</div><div class="caption">организаций используют AI хотя бы в одной бизнес-функции</div></div>
+    <div class="gap">разрыв<br>между использованием<br>и перестройкой</div>
+    <div class="stat"><div class="num">7%</div><div class="caption">полностью масштабировали AI на уровне всей организации</div></div>
+  </div>
+  <div class="stat" style="margin-top:22px;display:flex;align-items:center;gap:28px"><div class="num" style="font-size:58px;color:var(--ink)">$285,9 млрд</div><div class="caption">частных инвестиций в AI в США за 2025 год</div></div>
+  <div class="callout" style="margin-top:24px">Пользоваться ИИ начали почти все. Перестроить под него работу успели очень немногие.</div>
+  <!-- Добавленный вопрос -->
+  <div class="callout" style="margin-top:16px;background:rgba(201,92,53,.12);border-left-color:var(--gold);font-size:24px;font-weight:700">А теперь честно: <span class="gold">сколько из вас вообще использовали ИИ для реальной бизнес-задачи за последнюю неделю?</span></div>
+  <div class="footer"><span>McKinsey 2025 · Stanford AI Index 2026</span><span>6 / 30</span></div>
+</section>
+
+<!-- Слайды 7-18 без изменений (кроме номеров) -->
+<section class="slide dark" data-note="Здесь уже ближе к бизнесу. Важно: не страшилка, а изменение цены задач.">
+  <div class="eyebrow">Работа человека</div>
+  <h2>Сначала меняется не профессия. Меняются задачи внутри неё.</h2>
+  <p class="lead muted">ИИ не обязательно уничтожает профессию. Он ускоряет, удешевляет или забирает отдельные задачи.</p>
+  <div class="tasks" style="margin-top:24px">
+    <div class="card"><span class="tag">Было</span><p class="mid"><b>Человек выполняет цепочку работы:</b> ищет, сравнивает, пишет, готовит, фиксирует.</p></div>
+    <div class="card"><span class="tag">С ИИ</span><p class="mid"><b>Часть цепочки ускоряется:</b> подготовка, анализ, черновики, структурирование.</p></div>
+    <div class="card"><span class="tag">Остаётся человеку</span><p class="mid"><b>Суждение:</b> контекст, доверие, ответственность, решение, переговоры.</p></div>
+  </div>
+  <div class="callout" style="margin-top:30px">Вопрос не только «кого заменит ИИ». Вопрос — какая часть работы дешевеет, а какая становится дороже.</div>
+  <div class="footer"><span>Дальше — несколько понятных примеров</span><span>7 / 30</span></div>
+</section>
+
+<section class="slide" data-note="Пример продаж и HR. Можно читать по структуре: было — с ИИ — что остаётся. Не надо всё проговаривать подробно.">
+  <div class="eyebrow">Пример 1–2</div>
+  <h2>Продажи и HR: ИИ забирает подготовку, но не заменяет решение.</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h3>Продажи</h3>
+      <p class="mid"><b>Было:</b> менеджер ищет компании и ЛПР, изучает клиента, пишет письмо, готовит КП, фиксирует договорённости.</p>
+      <p class="mid"><b>С ИИ:</b> можно собрать открытые данные, подготовить гипотезы потребностей, письмо от вашего имени, первый вариант КП и следующее письмо.</p>
+      <p class="mid"><b>Человеку:</b> доверие, переговоры, контекст, коммерческое решение, закрытие сделки.</p>
+    </div>
+    <div class="card">
+      <h3>HR / рекрутинг</h3>
+      <p class="mid"><b>Было:</b> просмотр резюме, сравнение, коммуникация, подготовка интервью, заключение после встречи.</p>
+      <p class="mid"><b>С ИИ:</b> разбор откликов, сопоставление с требованиями, вопросы к интервью, структурирование результата встречи.</p>
+      <p class="mid"><b>Человеку:</b> мотивация, противоречия, оценка рисков, продажа компании кандидату, решение с руководителем.</p>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:24px">ИИ может забрать большую часть подготовки. Но способность договориться, оценить человека и принять решение становится ценнее.</div>
+  <div class="footer"><span>Продажи · HR</span><span>8 / 30</span></div>
+</section>
+
+<section class="slide" data-note="Юрист и маркетинг. Ключевые фразы: профессиональное суждение не дешевеет; чем дешевле варианты, тем дороже выбор.">
+  <div class="eyebrow">Пример 3–4</div>
+  <h2>Юрист и маркетинг: обработка информации дешевеет, суждение дорожает.</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h3>Юрист</h3>
+      <p class="mid"><b>Было:</b> читать договор, искать отличия, выписывать спорные пункты, готовить первый вариант текста.</p>
+      <p class="mid"><b>С ИИ:</b> сравнение документов, поиск изменений, спорные формулировки, список вопросов, первый черновик.</p>
+      <p class="mid"><b>Человеку:</b> контекст сделки, реальный риск, позиция, переговоры, ответственность.</p>
+    </div>
+    <div class="card">
+      <h3>Маркетинг</h3>
+      <p class="mid"><b>Было:</b> искать конкурентов, читать сайты, собирать таблицы, изучать отзывы, придумывать гипотезы.</p>
+      <p class="mid"><b>С ИИ:</b> исследование, систематизация, анализ отзывов, боли клиентов, много вариантов гипотез и материалов.</p>
+      <p class="mid"><b>Человеку:</b> понять клиента, найти идею, выбрать правильную гипотезу и связать маркетинг с деньгами.</p>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:24px">Чем дешевле производство вариантов, тем дороже способность выбрать правильный.</div>
+  <div class="footer"><span>Юрист · Маркетинг</span><span>9 / 30</span></div>
+</section>
+
+<section class="slide dark" data-note="Последний пример + вопрос про junior. Сделать паузу перед вопросом.">
+  <div class="eyebrow">Пример 5</div>
+  <h2>Разработка: написать код проще. Понять, что строить, — ценнее.</h2>
+  <div class="grid g2" style="margin-top:12px">
+    <div class="card"><span class="tag">Было</span><p class="mid">Разработчик пишет код, ищет ошибки, делает тесты, документацию и исправления.</p></div>
+    <div class="card"><span class="tag">С ИИ</span><p class="mid">ИИ уже помогает писать типовой код, искать часть ошибок, объяснять чужой код, готовить тесты и документацию.</p></div>
+  </div>
+  <div class="callout" style="margin-top:24px">Понять, что нужно построить и как собрать работающую систему, становится важнее самого набора кода.</div>
+  <div class="rule"></div>
+  <p class="lead">А теперь вопрос шире: если раньше junior учился на простых задачах, а их начинает выполнять ИИ — <b class="gold">как через десять лет мы будем выращивать senior?</b></p>
+  <div class="footer"><span>Не только замена · изменение обучения и ролей</span><span>10 / 30</span></div>
+</section>
+
+<section class="slide dark" data-note="Главный разворот на зрителя. Можно читать с экрана и делать паузы после каждого вопроса.">
+  <div class="eyebrow">Теперь — к вашему бизнесу</div>
+  <div class="big-question">Какие процессы вашего бизнеса всё ещё устроены так, будто ИИ не существует?</div>
+  <div class="question-list">
+    <div class="qcard">Что вы всё ещё делаете вручную?</div>
+    <div class="qcard">Что сотрудники каждый раз делают заново?</div>
+    <div class="qcard">За какую интеллектуальную работу вы платите так же, как несколько лет назад?</div>
+  </div>
+  <div class="callout" style="margin-top:34px">Переходим к практике: что вы уже можете делать с ИИ самостоятельно.</div>
+  <div class="footer"><span>Переход ко второй главе · практика</span><span>11 / 30</span></div>
+</section>
+
+<!-- Слайд 12 – добавлены цифры -->
+<section class="slide" data-note="Слайд о тебе. Не читать как резюме; главное — почему ты смотришь на ИИ через работу и бизнес.">
+  <div class="eyebrow">Почему я смотрю на ИИ через бизнес</div>
+  <div class="bio">
+    <div>
+      <h1 style="font-size:58px;margin-bottom:12px">Залифа Галимова</h1>
+      <p class="lead">12+ лет я работала с тем, как устроена работа людей: найм, команды, руководители, бизнес-задачи и решения.</p>
+      <div class="bio-list" style="margin-top:22px">
+        <div class="bio-item"><b>IT и HR</b><span>Сложный IT-найм, команды, руководители, крупные корпоративные и проектные задачи.</span></div>
+        <div class="bio-item"><b>Предпринимательство</b><span>Основала кадровое агентство IT Stars, руководила людьми и собирала команды под задачи бизнеса.</span></div>
+        <div class="bio-item"><b>ИИ-решения</b><span>Сейчас помогаю понять, какую работу можно перестроить с помощью ИИ — для человека и для бизнеса.</span></div>
+      </div>
+      <div class="callout" style="margin-top:26px;font-size:24px">Меня интересует не сам ИИ. Меня интересует, какую работу благодаря ему можно устроить принципиально иначе.</div>
+    </div>
+    <div class="card" style="padding:34px;border-radius:28px;background:rgba(201,92,53,.08)">
+      <h3 style="font-size:30px;color:var(--rust);margin-bottom:16px">После встречи</h3>
+      <p class="mid"><b>Материалы и полезные ссылки</b> я отправлю в чат участников.</p>
+      <p class="mid muted">Если захотите продолжить — можно будет написать мне лично: <b>СЕБЕ</b> или <b>БИЗНЕС</b>.</p>
+      <div class="rule"></div>
+      <p class="mid"><b>Главное:</b> не нужно уже сейчас понимать, какой именно бот или агент нужен. Начинаем с вашей реальной задачи.</p>
+    </div>
+  </div>
+  <div class="footer"><span>Залифа Галимова · ИИ для себя и бизнеса</span><span>12 / 30</span></div>
+</section>
+
+<!-- Слайд 13 -->
+<section class="slide" data-note="Вторая часть. Не продавать сразу. Сначала показать лестницу зрелости: человек сам должен увидеть, что он пока на 1–2 уровне.">
+  <div class="eyebrow">Глава 2 · уровни работы с ИИ</div>
+  <h2>Как сегодня можно использовать искусственный интеллект</h2>
+  <div class="levels-map">
+    <div class="levelbox"><div class="n">1</div><h3>Спросить</h3><p>Использовать ИИ как новый способ получать информацию, ответы и объяснения.</p></div>
+    <div class="levelbox"><div class="n">2</div><h3>Поручить</h3><p>Не спрашивать, как сделать работу, а поручать ИИ сделать её вместе с вами.</p></div>
+    <div class="levelbox"><div class="n">3</div><h3>Настроить</h3><p>Создать свою систему работы с ИИ: контекст, роли, помощники и сценарии.</p></div>
+    <div class="levelbox"><div class="n">4</div><h3>Встроить</h3><p>Передать ИИ часть функции внутри бизнеса и встроить его в процессы компании.</p></div>
+  </div>
+  <div class="callout" style="margin-top:28px">Главный вопрос: на каком уровне сегодня находитесь вы?</div>
+  <div class="footer"><span>Карта второй части</span><span>13 / 30</span></div>
+</section>
+
+<!-- Слайд 14 -->
+<section class="slide" data-note="Объяснить: это полезно, но это самый базовый уровень. Здесь ИИ почти не знает человека и бизнес.">
+  <div class="eyebrow">Уровень 1 · спросить</div>
+  <h2>ИИ можно использовать почти как новый Google или Яндекс</h2>
+  <div class="grid g2">
+    <div>
+      <p class="lead">Вы задаёте вопрос и получаете ответ быстрее, чем через обычный поиск.</p>
+      <div class="examples">
+        <div class="mini"><b>Вопрос</b>Как подготовиться к переговорам?</div>
+        <div class="mini"><b>Вопрос</b>Какие есть способы привлечения клиентов?</div>
+        <div class="mini"><b>Вопрос</b>Как рассчитать юнит-экономику?</div>
+        <div class="mini"><b>Вопрос</b>Какие есть варианты решения?</div>
+      </div>
+    </div>
+    <div class="card" style="background:var(--ink);color:white">
+      <h3 style="color:var(--gold)">Ограничение</h3>
+      <p class="mid" style="color:white">В этот момент ИИ почти ничего не знает конкретно о вас.</p>
+      <p class="mid" style="color:rgba(255,255,255,.74)">Он не знает ваш бизнес, клиентов, продукт, цели, ограничения, прошлые решения и ваш стиль работы.</p>
+      <div class="rule" style="background:rgba(255,255,255,.18)"></div>
+      <p class="mid" style="color:white"><b>Результат первого уровня — ответ.</b></p>
+    </div>
+  </div>
+  <div class="footer"><span>Полезно, но базово</span><span>14 / 30</span></div>
+</section>
+
+<!-- Слайд 15 -->
+<section class="slide dark" data-note="Здесь появляется второй уровень: не объясни, а сделай. Важно сказать: это уже работа, которую раньше полностью делал человек.">
+  <div class="eyebrow">Уровень 2 · поручить</div>
+  <h2>Следующий уровень начинается, когда вы перестаёте спрашивать «как» и начинаете поручать работу</h2>
+  <div class="example-row">
+    <div class="example-tile" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:white">
+      <div class="big-label">Не так</div>
+      <div class="phrase">«Как составить коммерческое предложение?»</div>
+    </div>
+    <div class="example-tile" style="background:rgba(201,92,53,.18);border-color:rgba(255,255,255,.16);color:white">
+      <div class="big-label" style="color:var(--gold)">А так</div>
+      <div class="phrase" style="color:white">«Подготовь коммерческое предложение для этого клиента»</div>
+    </div>
+  </div>
+  <div class="grid g3" style="margin-top:22px">
+    <div class="card"><p class="mid"><b>Текст и документы</b><br>КП, письма, инструкции, описания.</p></div>
+    <div class="card"><p class="mid"><b>Анализ</b><br>Клиенты, конкуренты, риски, варианты решений.</p></div>
+    <div class="card"><p class="mid"><b>Подготовка</b><br>Переговоры, встречи, вопросы, структура разговора.</p></div>
+  </div>
+  <div class="callout" style="margin-top:26px">Результат второго уровня — работа, которую раньше полностью делал человек.</div>
+  <div class="footer"><span>От ответа — к результату</span><span>15 / 30</span></div>
+</section>
+
+<!-- Слайд 16 -->
+<section class="slide" data-note="Ключевой продающий слайд. Здесь не надо торопиться. Контекст — основа твоего продукта.">
+  <div class="eyebrow">Главная разница</div>
+  <h2>Почему один человек получает от ИИ посредственный результат, а другой — сильный?</h2>
+  <p class="lead">Качество работы ИИ зависит не только от запроса. Ему нужен контекст.</p>
+  <div class="context-grid">
+    <div class="card">
+      <h3>Без контекста</h3>
+      <p class="mid">«Сделай коммерческое предложение»</p>
+      <p class="mid muted">ИИ отвечает усреднённо: красиво, но часто не про ваш бизнес, не про вашего клиента и не про вашу реальность.</p>
+    </div>
+    <div class="card">
+      <h3>С контекстом</h3>
+      <div class="context-list">
+        <div class="pill">продукт</div><div class="pill">клиент</div><div class="pill">цели</div><div class="pill">ограничения</div><div class="pill">стиль</div><div class="pill">цены</div><div class="pill">документы</div><div class="pill">прошлые решения</div>
+      </div>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:28px">Без контекста ИИ знает мир. С контекстом он начинает понимать вас.</div>
+  <div class="footer"><span>Не волшебный промпт · контекст</span><span>16 / 30</span></div>
+</section>
+
+<!-- Слайд 17 -->
+<section class="slide" data-note="Третий уровень: уже не разовый чат. Смысл — своя рабочая система. Не уходить в тарифы и конкретные функции, они меняются.">
+  <div class="eyebrow">Уровень 3 · настроить</div>
+  <h2>От отдельных диалогов — к собственной системе работы с ИИ</h2>
+  <p class="lead">На этом уровне вы уже не хотите каждый раз начинать с нуля и заново объяснять ИИ, кто вы и что вам нужно.</p>
+  <div class="ladder">
+    <div class="ladder-row"><b>Контекст</b><span>Информация о вас, бизнесе, продуктах, правилах, задачах и предпочтениях.</span></div>
+    <div class="ladder-row"><b>Роли</b><span>Специализированные помощники под разные типы работы, а не один универсальный чат.</span></div>
+    <div class="ladder-row"><b>Материалы</b><span>Документы, инструкции, примеры, рабочая информация и повторяющиеся сценарии.</span></div>
+    <div class="ladder-row"><b>Инструменты</b><span>Сайты, прототипы, помощники, работа с файлами и данными — в зависимости от платформы и задачи.</span></div>
+  </div>
+  <div class="callout" style="margin-top:24px">Я уже не просто «пользуюсь GPT». Я организую с помощью ИИ собственную работу.</div>
+  <div class="footer"><span>Персональная система работы с ИИ</span><span>17 / 30</span></div>
+</section>
+
+<!-- Слайд 18 -->
+<section class="slide dark" data-note="Четвёртый уровень — бизнес. Сказать: здесь центр уже не человек, а процесс компании.">
+  <div class="eyebrow">Уровень 4 · встроить</div>
+  <h2>И здесь происходит самый большой переход</h2>
+  <div class="grid g2" style="margin-top:22px">
+    <div class="card">
+      <h3 style="color:var(--gold)">Первые три уровня</h3>
+      <p class="lead" style="color:white">Я → ИИ → результат для меня</p>
+      <p class="mid muted">ИИ усиливает конкретного человека: собственника, руководителя, специалиста.</p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--gold)">Четвёртый уровень</h3>
+      <p class="lead" style="color:white">Процесс компании → ИИ → человек / система → бизнес-результат</p>
+      <p class="mid muted">ИИ становится частью того, как компания выполняет работу.</p>
+    </div>
+  </div>
+  <div class="process-line">
+    <div class="process-node"><b>Процесс</b><span>что происходит сейчас</span></div><div class="arrow">→</div>
+    <div class="process-node"><b>Контекст</b><span>данные, правила, знания компании</span></div><div class="arrow">→</div>
+    <div class="process-node"><b>ИИ</b><span>часть функции и логики работы</span></div><div class="arrow">→</div>
+    <div class="process-node"><b>Результат</b><span>для сотрудника, клиента или системы</span></div>
+  </div>
+  <div class="callout" style="margin-top:26px">Первые три уровня усиливают человека. Четвёртый меняет устройство работы компании.</div>
+  <div class="footer"><span>От личного инструмента — к процессу компании</span><span>18 / 30</span></div>
+</section>
+
+<!-- Слайд 19 – Главная ошибка (без изменений) -->
+<section class="slide" data-note="Очень важный антиботный слайд. Он поднимает тебя над обычными продавцами автоматизации.">
+  <div class="eyebrow">Главная ошибка</div>
+  <h2>Очень часто внедрение ИИ начинают не с того места</h2>
+  <div class="mistake-list">
+    <div class="mistake">«Мне нужен бот»</div>
+    <div class="mistake">«Хочу ИИ-сотрудника»</div>
+    <div class="mistake">«Автоматизируем продажи»</div>
+    <div class="mistake">«Нужен ИИ для HR»</div>
+  </div>
+  <p class="lead" style="margin-top:26px">Но это ещё не задача на внедрение. Сначала нужно понять:</p>
+  <div class="checklist">
+    <div class="check">Что именно происходит в процессе?</div>
+    <div class="check">Где теряются время, деньги или качество?</div>
+    <div class="check">Что должен продолжать делать человек?</div>
+    <div class="check">Что можно передать ИИ?</div>
+    <div class="check">Какая информация понадобится системе?</div>
+    <div class="check">Какой результат должен измениться?</div>
+  </div>
+  <div class="callout" style="margin-top:24px">Сначала проектируется работа. Потом выбирается технология.</div>
+  <div class="footer"><span>Не бот ради бота · сначала процесс</span><span>19 / 30</span></div>
+</section>
+
+<!-- Слайд 19.5 – Топ-3 страха (новый) -->
+<section class="slide dark" data-note="Снять возражения. Проговорить эти страхи и разбить их.">
+  <div class="eyebrow">Топ-3 страха предпринимателей</div>
+  <h2>Почему многие откладывают внедрение ИИ</h2>
+  <div class="fear-grid">
+    <div class="fear-card">
+      <h3>😨 «Это сложно»</h3>
+      <p>Можно начать с одного понятного сценария без кода и сложной разработки.</p>
+    </div>
+    <div class="fear-card">
+      <h3>😨 «Не для моего бизнеса»</h3>
+      <p>Если в бизнесе есть повторяющиеся задачи, документы, клиенты, продажи или команда — уже есть поле для проверки.</p>
+    </div>
+    <div class="fear-card">
+      <h3>😨 «Дорого»</h3>
+      <p>Не обязательно сразу внедрять большую систему. Сначала можно разобрать один процесс и понять, есть ли смысл идти дальше.</p>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:30px">Это не про технологии. Это про экономию времени и денег.</div>
+  <div class="footer"><span>Снимаем возражения</span><span>20 / 30</span></div>
+</section>
+
+<!-- Слайд 20 (был 20) – Мой подход -->
+<section class="slide" data-note="Авторский слайд Залифы. Это объясняет, почему ты начинаешь не с автоматизации компании, а с собственника.">
+  <div class="eyebrow">Мой подход</div>
+  <h2>Почему я часто начинаю с самого предпринимателя</h2>
+  <div class="grid g2" style="align-items:center;margin-top:10px">
+    <div>
+      <p class="lead">Когда собственнику сразу говорят: «Давайте внедрим ИИ в ваш бизнес», это часто звучит как что-то большое, техническое и непонятное.</p>
+      <p class="mid">Поэтому я предпочитаю другой путь: сначала предприниматель начинает использовать ИИ для собственных реальных задач.</p>
+      <p class="mid">Он сам чувствует, где ИИ действительно полезен, а где нет.</p>
+    </div>
+    <div class="card" style="background:rgba(201,92,53,.08)">
+      <h3>Что меняется</h3>
+      <p class="mid">Собственник быстрее думает, анализирует, готовится к встречам, работает с информацией, создаёт материалы и принимает решения.</p>
+      <p class="mid">И после этого иначе смотрит на процессы своей компании.</p>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:28px">Сначала меняется способ работы собственника. Затем можно менять способ работы бизнеса.</div>
+  <div class="footer"><span>От личного ИИ — к ИИ-системе бизнеса</span><span>21 / 30</span></div>
+</section>
+
+
+<!-- Новый слайд – Личная система 1 -->
+<section class="slide" data-note="Здесь показываем масштаб: не мелкие функции, а процесс целиком. Начни с фразы: покажу, как ИИ работает у меня как у предпринимателя.">
+  <div class="eyebrow">Как я сама использую ИИ</div>
+  <h2>ИИ не выполняет у меня одну задачу. Он может сопровождать целый рабочий процесс.</h2>
+  <p class="lead wide">Например, в продажах ИИ может идти вместе со мной от поиска потенциального клиента до подготовки встречи и следующего шага.</p>
+  <div class="pipeline">
+    <div class="pipe-step"><b>Рынок</b><span>изучает компании и выбирает потенциально подходящие</span></div>
+    <div class="pipe-step"><b>ЛПР</b><span>ищет собственников, руководителей и открытые контакты</span></div>
+    <div class="pipe-step"><b>Анализ</b><span>разбирает бизнес, конкурентов и возможную пользу</span></div>
+    <div class="pipe-step"><b>Письмо</b><span>формирует персональное обращение от моего имени</span></div>
+    <div class="pipe-step"><b>Встреча</b><span>готовит контекст, вопросы и нужные материалы</span></div>
+    <div class="pipe-step"><b>После</b><span>собирает договорённости и следующий шаг</span></div>
+  </div>
+  <div class="callout" style="margin-top:28px">Для меня ИИ — это не место, куда я иногда захожу написать текст. Это часть рабочего процесса.</div>
+  <div class="footer"><span>Личная система предпринимателя</span><span>22 / 30</span></div>
+</section>
+
+<!-- Новый слайд – Личная система 2 -->
+<section class="slide" data-note="Важно: не утро/вечер, а единая система. Проговори: это не разрозненные фишки, а разные зоны моей работы и жизни.">
+  <div class="eyebrow">И это только один процесс</div>
+  <h2>Я постепенно переношу в ИИ часть своей интеллектуальной нагрузки.</h2>
+  <div class="systems-grid">
+    <div class="system-card"><h3>Управление</h3><p>Планы, решения, риски, приоритеты, анализ проектов и следующие шаги.</p></div>
+    <div class="system-card"><h3>Встречи</h3><p>ИИ ставит встречи, готовит контекст, сводку, вопросы, материалы и презентации.</p></div>
+    <div class="system-card"><h3>Продажи</h3><p>Рынок → компании → собственники → контакты → письмо → переговоры → предложение.</p></div>
+    <div class="system-card"><h3>Исследования</h3><p>Конкуренты, новые ниши, компании, предложения и информация для решений.</p></div>
+    <div class="system-card"><h3>Упаковка</h3><p>Презентации, тексты, предложения и материалы с учётом моего контекста и позиции.</p></div>
+    <div class="system-card"><h3>Личная жизнь</h3><p>Например, ИИ-нутрициолог считает калории, БЖУ, витамины, минералы и даёт рекомендации.</p></div>
+  </div>
+  <div class="callout" style="margin-top:26px">Я не захожу в ИИ «что-нибудь спросить». Я выстраиваю вокруг него рабочую систему.</div>
+  <div class="footer"><span>Бизнес · встречи · продажи · личное</span><span>23 / 30</span></div>
+</section>
+
+<!-- Новый слайд – Личная система 3 -->
+<section class="slide dark" data-note="Акцент: не 40 ботов ради цифры. Главный смысл — специализация ролей и совещание под сложную задачу.">
+  <div class="eyebrow">Не один универсальный GPT</div>
+  <h2>У меня настроено около 40 специализированных ИИ-ролей.</h2>
+  <p class="lead muted">Я не использую их все одновременно. Под конкретную задачу подключаются только те, чья экспертиза нужна именно сейчас.</p>
+  <div class="role-cloud">
+    <div class="role-group"><h3>Если нужно продать</h3><div class="role-tags"><span class="role-tag">коммерческий директор</span><span class="role-tag">исследователь клиента</span><span class="role-tag">переговорщик</span><span class="role-tag">критик предложения</span></div></div>
+    <div class="role-group"><h3>Если нужно принять решение</h3><div class="role-tags"><span class="role-tag">стратег</span><span class="role-tag">бизнес-аналитик</span><span class="role-tag">финансовый взгляд</span><span class="role-tag">оппонент</span></div></div>
+    <div class="role-group"><h3>Если нужно нанять</h3><div class="role-tags"><span class="role-tag">рекрутер</span><span class="role-tag">HR-аналитик</span><span class="role-tag">эксперт по оценке</span></div></div>
+    <div class="role-group"><h3>Если нужно упаковать идею</h3><div class="role-tags"><span class="role-tag">маркетолог</span><span class="role-tag">редактор</span><span class="role-tag">исследователь аудитории</span></div></div>
+  </div>
+  <div class="callout" style="margin-top:24px">Я разделяю сложную работу так же, как разделяла бы её между людьми.</div>
+  <div class="footer"><span>Специализация · роли · ИИ-команда</span><span>24 / 30</span></div>
+</section>
+
+<!-- Новый слайд – Личная система 4 -->
+<section class="slide" data-note="Самый продающий смысл: один GPT отвечает, а система помогает разобрать задачу глубже. В конце сделать мост к бизнесу.">
+  <div class="eyebrow">Когда задача сложная</div>
+  <h2>Я не спрашиваю один GPT: «Что делать?» Я собираю ИИ-совещание.</h2>
+  <div class="meeting-flow">
+    <div class="meeting-block"><h3>1. Брифинг</h3><ul><li>цель</li><li>контекст</li><li>ограничения</li><li>документы</li><li>что уже пробовали</li></ul></div>
+    <div class="meeting-arrow">→</div>
+    <div class="meeting-block"><h3>2. Разбор ролями</h3><ul><li>стратег смотрит последствия</li><li>коммерческий директор — деньги</li><li>аналитик — данные</li><li>критик ищет слабые места</li></ul></div>
+    <div class="meeting-arrow">→</div>
+    <div class="meeting-block"><h3>3. Сборка решения</h3><ul><li>варианты</li><li>риски</li><li>аргументы</li><li>рекомендации</li><li>что проверить дальше</li></ul></div>
+  </div>
+  <div class="callout" style="margin-top:26px">Решение всё равно принимаю я. Но уже не после одного ответа GPT, а после разбора с разных сторон.</div>
+  <div class="footer"><span>Брифинг · ИИ-совещание · решение</span><span>25 / 30</span></div>
+</section>
+
+<!-- Новый слайд – Граница и перенос на бизнес -->
+<section class="slide dark" data-note="Это мост к продаже бизнеса. Проговори: часть системы работает в моём личном пространстве, а следующий уровень — вынести логику в бизнес.">
+  <div class="eyebrow">Настоящая граница</div>
+  <h2>Для меня ИИ — уже не чат. Это дополнительный слой моей работы.</h2>
+  <div class="boundary-grid">
+    <div class="boundary-card"><h3>Большинство начинает так</h3><ul><li>человек</li><li>вопрос</li><li>GPT</li><li>ответ</li></ul></div>
+    <div class="boundary-vs"><span>вместо</span></div>
+    <div class="boundary-card"><h3>Другая модель</h3><ul><li>цель → контекст</li><li>нужные ИИ-роли</li><li>поиск и анализ</li><li>совместный разбор</li><li>материал / решение / действие</li><li>следующий шаг</li></ul></div>
+  </div>
+  <div class="callout" style="margin-top:28px">Когда мы говорим о компании, эту логику нужно вынести за пределы личного аккаунта, подключить к данным и инструментам бизнеса и сделать частью реального процесса.</div>
+  <div class="footer"><span>От личной ИИ-системы — к инфраструктуре бизнеса</span><span>26 / 30</span></div>
+</section>
+
+<!-- Слайд 21 (был 21) – Самодиагностика + призыв "Хочу" -->
+<section class="slide dark" data-note="Остановиться и попросить написать цифру в чат. Затем добавить призыв.">
+  <div class="eyebrow">Самодиагностика</div>
+  <h2>А теперь посмотрите на себя</h2>
+  <p class="lead muted">На каком уровне вы сейчас — и на какой хотите перейти?</p>
+  <div class="vote-grid">
+    <div class="vote"><div class="digit">1</div><b>Спрашиваю</b><span>Иногда использую ИИ вместо поиска.</span></div>
+    <div class="vote"><div class="digit">2</div><b>Поручаю</b><span>Отдаю ИИ часть реальной работы.</span></div>
+    <div class="vote"><div class="digit">3</div><b>Настроил под себя</b><span>Есть контекст, сценарии и помощники.</span></div>
+    <div class="vote"><div class="digit">4</div><b>Встраиваю в бизнес</b><span>ИИ участвует в процессе компании.</span></div>
+  </div>
+  <div class="callout" style="margin-top:32px">Напишите в чат цифру: где вы сейчас? И куда хотите перейти?</div>
+  <!-- Добавленный призыв -->
+  <div class="callout" style="margin-top:16px;background:rgba(199,154,81,.15);border-left-color:var(--gold);font-size:28px;font-weight:900;text-align:center;">
+    🚀 <span class="gold">Хотите попробовать на своей задаче?</span><br>
+    <span style="font-size:22px;font-weight:700;">Напишите «Хочу» в чат — выберу несколько задач для короткого разбора.</span>
+  </div>
+  <div class="footer"><span>Пауза · ответы участников</span><span>27 / 30</span></div>
+</section>
+
+<!-- Слайд 22 (был 22) – Что я делаю на практике -->
+<section class="slide" data-note="Слайд доказательства. Не раздувать. Дать понять: это не теория, уже были реальные задачи и результаты.">
+  <div class="eyebrow">Что я делаю на практике</div>
+  <h2>Для меня ИИ — не отдельный инструмент. Это способ по-другому организовать работу.</h2>
+  <div class="proof-grid">
+    <div class="proof"><h3>Персональные ИИ-помощники</h3><p>Работа с итогами дня, подготовкой к встречам, анализом информации, узкими местами и управленческими задачами.</p><div class="result">ИИ помогает руководителю думать и готовить решения быстрее.</div></div>
+    <div class="proof"><h3>Адаптация сотрудников</h3><p>В производственной компании около 70 сотрудников была выстроена система адаптации с анкетами, обратной связью и уведомлениями для сотрудника, руководителя и HR.</p><div class="result">Результат — снижение увольнений на испытательном сроке на 30%.</div></div>
+    <div class="proof"><h3>Диагностика бизнеса</h3><p>Я смотрю не на то, «какого бота можно сделать», а где в процессах теряются время, деньги, знания и управляемость.</p><div class="result">Сначала задача бизнеса — потом ИИ-решение.</div></div>
+  </div>
+  <div class="callout" style="margin-top:22px">Моя задача — не добавить ещё один ИИ-инструмент. Моя задача — найти работу, которую можно устроить лучше.</div>
+  <div class="footer"><span>Практика · не теория</span><span>28 / 30</span></div>
+</section>
+
+<!-- Слайд 22.5 – Кейс (визуально переработан) -->
+<section class="slide dark" data-note="Кейс: не читать все пункты. Проведи как трансформацию: хаос — система — результат.">
+  <div class="eyebrow">Кейс</div>
+  <h2>6 центров: из ручного контроля — в управляемую систему</h2>
+  <div class="case-visual">
+    <div class="case-vcard before">
+      <span class="case-kicker">Было</span>
+      <h3>Хаос и операционка</h3>
+      <ul>
+        <li>6 центров жили как 6 разных «вселенных».</li>
+        <li>Данные были разрознены, картину приходилось собирать вручную.</li>
+        <li>Собственник тратил день на разъезды и «пожары».</li>
+        <li>Заявки терялись после диагностики.</li>
+      </ul>
+    </div>
+    <div class="case-varrow">→</div>
+    <div class="case-vcard solution">
+      <span class="case-kicker">Сделали</span>
+      <h3>Собрали контур управления</h3>
+      <ul>
+        <li>Единая панель: загрузка, выручка и конверсия по центрам.</li>
+        <li>Сквозной контроль пути клиента: от заявки до сделки.</li>
+        <li>ИИ-ассистент помогает готовиться к встречам и собеседованиям.</li>
+        <li>Маркетинг получил структуру: план, тексты и материалы.</li>
+      </ul>
+    </div>
+    <div class="case-varrow">→</div>
+    <div class="case-vcard after">
+      <span class="case-kicker">Итог</span>
+      <h3>Управление вместо тушения пожаров</h3>
+      <ul>
+        <li>Собственник видит сеть с одного экрана.</li>
+        <li>Клиенты и заявки не выпадают из процесса.</li>
+        <li>Решения принимаются на данных, а не на ощущениях.</li>
+        <li>Фокус смещается с операционки на развитие.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="case-result">Смысл кейса: ИИ здесь не «игрушка», а способ собрать управляемость там, где раньше всё держалось на ручном контроле.</div>
+  <div class="footer"><span>Кейс · системное решение</span><span>29 / 30</span></div>
+</section>
+
+<!-- Слайд 23 (был 23) – Финал (усиленный оффер) -->
+<section class="slide dark" data-note="Финальный продающий слайд. Дать выбор с бонусами и дефицитом.">
+  <div class="eyebrow">Следующий шаг</div>
+  <h2>Куда можно двигаться дальше</h2>
+  <div class="route">
+    <div class="route-card" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:white">
+      <h3 style="color:var(--gold)">Хочу ИИ для себя</h3>
+      <p style="color:white">Разбираем ваши реальные задачи, собираем контекст, настраиваем работу с ИИ и учимся использовать его именно в вашей деятельности.</p>
+      <div class="cta-word">СЕБЕ</div>
+    </div>
+    <div class="route-card" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:white">
+      <h3 style="color:var(--gold)">Хочу ИИ для бизнеса</h3>
+      <p style="color:white">Разбираем процессы, определяем, где ИИ даст эффект, что оставить человеку и какое решение имеет смысл создавать.</p>
+      <div class="cta-word">БИЗНЕС</div>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:18px;align-items:center">
+    <div class="callout" style="font-size:22px;background:rgba(199,154,81,.12);border-left-color:var(--gold);">
+      <b>Усиленный оффер:</b><br>
+      Кто напишет <span class="gold">СЕБЕ</span> — получит чек-лист <b>«10 задач, которые ИИ решит за вас»</b>.<br>
+      Кто напишет <span class="gold">БИЗНЕС</span> — получит <b>диагностику одного процесса</b>.<br>
+      <span style="font-size:20px;font-weight:700;color:var(--gold);">Бесплатно. Только сегодня.</span>
+    </div>
+    <div class="card" style="justify-self:end;padding:24px;border-radius:24px;max-width:330px;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:white">
+      <h3 style="color:var(--gold);font-size:28px;margin-bottom:12px">Как продолжить</h3>
+      <p class="mid" style="color:white;margin-bottom:10px">Напишите мне в личные сообщения одно слово:</p>
+      <p class="mid" style="color:white"><b class="gold">СЕБЕ</b> — если хотите ИИ под свои задачи.</p>
+      <p class="mid" style="color:white"><b class="gold">БИЗНЕС</b> — если хотите разобрать процесс компании.</p>
+    </div>
+  </div>
+  <div class="footer"><span>Финал · два маршрута</span><span>30 / 30</span></div>
+</section>
+
+<!-- Прогресс-бар и навигация -->
+<div class="progress" id="progress"></div>
+<div class="nav"><button id="prev">‹</button><button id="next">›</button></div>
+<div class="notes" id="notes"></div>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const deck=document.getElementById('deck');
+function fitDeck(){
+  const scale=Math.min(window.innerWidth/1600, window.innerHeight/900);
+  deck.style.transform='scale('+scale+')';
+  deck.style.left=((window.innerWidth-1600*scale)/2)+'px';
+  deck.style.top=((window.innerHeight-900*scale)/2)+'px';
+}
+window.addEventListener('resize',fitDeck);
+let index=0; const notes=document.getElementById('notes');
+function show(i){
+ index=Math.max(0,Math.min(slides.length-1,i));
+ slides.forEach((s,k)=>s.classList.toggle('active',k===index));
+ document.getElementById('progress').style.width=((index+1)/slides.length*100)+'%';
+ notes.classList.remove('show'); notes.innerHTML='<b>Заметка:</b> '+(slides[index].dataset.note||'');
+ location.hash='s'+(index+1);
+}
+function next(){show(index+1)} function prev(){show(index-1)}
+window.goTo=show;
+document.getElementById('next').onclick=next;document.getElementById('prev').onclick=prev;
+document.addEventListener('keydown',e=>{
+ if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();next()}
+ if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev()}
+ if(e.key.toLowerCase()==='f'){document.documentElement.requestFullscreen?.()}
+ if(e.key.toLowerCase()==='n'){notes.classList.toggle('show');notes.innerHTML='<b>Заметка:</b> '+(slides[index].dataset.note||'')}
+});
+let touchX=null;document.addEventListener('touchstart',e=>{touchX=e.changedTouches[0].clientX});document.addEventListener('touchend',e=>{if(touchX===null)return;let dx=e.changedTouches[0].clientX-touchX;if(Math.abs(dx)>45){dx<0?next():prev()}touchX=null});
+document.addEventListener('click',e=>{if(e.target.closest('.nav'))return; const x=e.clientX/window.innerWidth; if(x>.78)next(); if(x<.22)prev();});
+let hash=location.hash.match(/s(\d+)/); if(hash) index=Number(hash[1])-1; fitDeck(); show(index);
+</script>
+</body>
+</html>
