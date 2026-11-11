@@ -1,0 +1,41 @@
+name: Publish ChelShtamp preview
+on:
+  push:
+    paths:
+      - '.github/workflows/mirror-chel-shtamp.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mirror published static site
+        run: |
+          set -euo pipefail
+          mkdir -p chel-shtamp
+          wget --user-agent="Mozilla/5.0" -e robots=off --recursive --level=2 --page-requisites --convert-links --adjust-extension --no-parent --no-host-directories --directory-prefix=chel-shtamp --domains=chel-shtamp-design.zalifa199155.chatgpt.site "https://chel-shtamp-design.zalifa199155.chatgpt.site/" || true
+          test -s chel-shtamp/index.html
+          python3 - <<'PY'
+          from pathlib import Path
+          root=Path("chel-shtamp")
+          for f in root.rglob("*"):
+              if f.suffix not in (".html",".js",".css") or not f.is_file():
+                  continue
+              text=f.read_text(encoding="utf-8",errors="replace")
+              text=text.replace('"/assets/','"/chel-shtamp/assets/').replace("'/assets/","'/chel-shtamp/assets/")
+              if f.suffix==".html":
+                  text=text.replace('href="/"','href="/chel-shtamp/"')
+              f.write_text(text,encoding="utf-8")
+          print("Mirrored files:", [(str(f), f.stat().st_size) for f in root.rglob("*") if f.is_file()])
+          PY
+      - name: Commit site mirror
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add chel-shtamp
+          if ! git diff --cached --quiet; then
+            git commit -m "Add mirrored ChelShtamp client preview"
+            git push origin HEAD:main
+          fi
